@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#594A46',
     fontSize: 26,
-    marginTop: 10,
+    marginTop: 35,
+    //marginTop: 10,
   },
   subHeaderText: {
     letterSpacing: 10,
