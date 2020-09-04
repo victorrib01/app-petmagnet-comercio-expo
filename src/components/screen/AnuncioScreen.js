@@ -1,34 +1,16 @@
 import React from 'react';
-import {View, StyleSheet, Text, TextInput, Button} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 
 import Header from './../home/HomeHeader';
+
+import AnuncioForm from '../forms/AnuncioForm';
 
 const AnuncioScreen = () => {
   return (
     <View>
       <Header />
       <View style={styles.container}>
-        <View style={styles.textBox}>
-          <Text style={styles.textQuestion}>
-            O que você gostaria de anunciar?
-          </Text>
-          <Text style={styles.textDesc}>
-            Digite um título para chamar a atenção dos clientes, exemplo:
-            "Aproveite esses Ótimos Preços"
-          </Text>
-        </View>
-        <View style={styles.inputBox}>
-          <Text style={styles.titulo}>Título</Text>
-          <TextInput
-            style={{height: 40, borderColor: 'gray', borderWidth: 1, width:300}}
-            maxLength= {45}
-            defaultValue='Um petisco para seu Dog!'
-          />
-          <Text style={styles.paginate}>1/4</Text>
-        </View>
-        <View style={styles.confirmButton}>
-          <Button title="Confirmar" />
-        </View>
+        <AnuncioForm/>
       </View>
     </View>
   );
