@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
 
-import {Alert} from 'react-native'
-
 //Import AnuncioForm components
 import Titulo from './AnuncioForm/Titulo'
 import Foto from './AnuncioForm/Foto'
 import Descricao from './AnuncioForm/Descricao'
 import Visivel from './AnuncioForm/Visivel'
 
-import CallServer from './../helper/callBackEnd';
+import CallServer from '../../../../assets/helper/callBackEnd';
 
 
 class AnuncioForm extends Component {
     state={
         step:1,
-        titulo:'Um petisco para seu Dog!',
-        visivel: '',
-        foto: '',
-        preco: '',
-        descricao:''
+        titulo:"",
+        visivel: "",
+        foto: "",
+        preco: "",
+        descricao:""
     }
 
     //Go to next step
@@ -42,11 +40,11 @@ class AnuncioForm extends Component {
         this.setState({[input]: e.target.value});
     }
 
-    callBackEnd = input => e => {
-        //this.setState({[input]: e.target.value});
-        //var resposta = callServer(e.target.value);
-        console.log(state);
-        console.log(JSON.stringify(state));
+    callBackEnd = () => {
+        const {titulo, visivel, foto, preco, descricao} = this.state;
+        const values = {titulo, visivel, foto, preco, descricao};
+        
+        console.log(values);
     }
 
     render() {

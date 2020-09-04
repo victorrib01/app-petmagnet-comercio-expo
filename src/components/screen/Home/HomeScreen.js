@@ -1,8 +1,10 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, Text} from 'react-native';
 
-import Header from './../home/HomeHeader';
-import Date from '../home/DateComponent'
+import styles from './Styles'
+
+import Header from '../../home/HomeHeader';
+import Date from '../../home/DateComponent'
 
 const HomeScreen = () => {
   return (
@@ -34,40 +36,4 @@ const HomeScreen = () => {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-  },
-  date: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    alignItems: 'center',
-  },
-  content: {
-    marginTop: 50,
-    padding: 50,
-    backgroundColor: '#006FB2',
-    borderBottomRightRadius: 50
-  },
-  textContent: {
-    color: '#FDCF05',
-    fontSize: 18,
-    textAlign: 'center',
-  },
-  statsContent: {
-    flexDirection: 'row',
-  },
-  stats: {
-    alignItems: "center",
-    padding: 20,
-  },
-  statsText:{
-    alignItems: "center",
-    fontSize: 14
-  },
-  statsNumber: {
-    fontSize: 30
-  }
-});
 export default HomeScreen;

@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 
-import Header from './../home/HomeHeader';
+import Header from '../../home/HomeHeader';
 
-import AnuncioForm from '../forms/AnuncioForm';
+import AnuncioForm from './forms/AnuncioForm';
 
 const AnuncioScreen = () => {
   return (

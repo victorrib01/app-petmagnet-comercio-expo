@@ -5,13 +5,13 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import Icon from 'react-native-vector-icons/Ionicons';
 Icon.loadFont();
 
-import {footerColor, white} from '../helper/Colors';
+import {footerColor, white} from '../../assets/helper/Colors';
 
 //Telas da aplicacao
-import HomeScreen from '../screen/HomeScreen';
-import AnuncioScreen from '../screen/AnuncioScreen';
-import PublicacoesScreen from '../screen/PublicacoesScreen';
-import PreferenciasScreen from '../screen/PreferenciasScreen';
+import HomeScreen from '../../components/screen/Home/HomeScreen';
+import AnuncioScreen from '../../components/screen/Anuncio/AnuncioScreen';
+import PublicacoesScreen from '../../components/screen/Publicacoes/PublicacoesScreen';
+import PreferenciasScreen from '../../components/screen/Preferencias/PreferenciasScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 

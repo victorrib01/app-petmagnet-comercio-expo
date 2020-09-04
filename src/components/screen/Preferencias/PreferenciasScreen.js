@@ -1,7 +1,9 @@
 import React from 'react';
 import {View, Text, Button} from 'react-native';
 
-import Header from './../home/HomeHeader';
+import Header from '../../home/HomeHeader';
+
+import styles from './Styles';
 
 const PreferenciasScreen = ({navigation}) => {
   return (
