@@ -13,6 +13,7 @@ export class Titulo extends Component {
     }
     render() {
         const {values, handleChange} = this.props;
+        
         return (
             <View>
                 <Text>Coloque seu título:</Text>
@@ -20,6 +21,8 @@ export class Titulo extends Component {
                     placeholder= "Título"
                     onChange={handleChange('titulo')}
                     defaultValue={values.titulo}
+                    value={enteredTitle}
+                    onChangeText={text => setEnteredTitle(text)} />
                 />
                 <Button
                     title='Continuar'
