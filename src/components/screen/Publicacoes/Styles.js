@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-import {publicacaoBox, visivelBox, fotoBox, descBox} from '../../../assets/Colors';
+import {publicacaoBox, visivelBox, fotoBox, descBox} from '../../../assets/helper/Colors';
 
 export default StyleSheet.create({
     view:{

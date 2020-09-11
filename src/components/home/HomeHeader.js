@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text, Button} from 'react-native';
-import {headerColor} from '../../assets/Colors'
+import {headerColor} from '../../assets/helper/Colors'
 
 const HomeHeader = ({navigation}) => {
   return (

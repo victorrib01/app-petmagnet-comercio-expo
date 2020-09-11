@@ -20,7 +20,7 @@ const initialValues = {
     describe: '',
     visibleFrom: '',
     visibleUntil: '',
-    image:''
+    image: ''
 }
 
 class FormFormik extends Component {
@@ -30,7 +30,11 @@ class FormFormik extends Component {
         //List of form values
         console.log(callServer(values));
     }
+    state = {
+        image: null,
+    };
     render(){
+        let { image } = this.state;
         return(
         <Formik
             initialValues={initialValues}
@@ -106,14 +110,19 @@ class FormFormik extends Component {
                 />
                 {/* IMAGE BUTTON */}
                 <Button
-                    mode="contained" 
+                    theme={{
+                        colors: {
+                            primary: "#006FB2"
+                        }
+                    }}
+                    mode="contained"
+                    style={styles.imageButton}
                     onPress={() => {this._pickImage(handleChange('image'))}}
-                    onBlur={handleBlur('image')}
-                    value={values.image}>
-                        Adicione uma imagem ao seu anúncio
+                    >
+                        Adicione uma imagem
                 </Button>
                 {/* SUBMIT BUTTON */}
-                <Button onPress={handleSubmit} style={styles.button}>Publicar</Button>
+                <Button mode="contained" onPress={handleSubmit} style={styles.button}>Publicar</Button>
             </ScrollView>
             )}
         </Formik>
@@ -144,12 +153,11 @@ class FormFormik extends Component {
             if (!result.cancelled) {
             this.setState({ image: result.uri });
             }
-            
             console.log(result);
         } catch (E) {
             console.log(E);
         }
-        };
+    };
 };
     //FINISH GET PERMISSIONS FROM CAMERA
 
@@ -158,7 +166,13 @@ const styles = StyleSheet.create({
         padding: 10,
         marginLeft: 10,
         marginRight: 10,
-        marginTop: 70,
+        marginTop: 50,
+    },
+    imageButton: {
+        padding: 10,
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 10
     },
 });
 
