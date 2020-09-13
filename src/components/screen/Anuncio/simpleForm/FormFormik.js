@@ -5,39 +5,31 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import { TextInput, Button } from 'react-native-paper';
 
-//CAMERA IMPORTS
-import * as ImagePicker from 'expo-image-picker';
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
+//IMAGEPICKER IMPORT
+import ImageComponent from './ImageComponent'
 
 //BACKEND IMPORTS
 import callServer from '../../../../services/callBackEnd'
 
-//FORM VALUES
-const initialValues = {
-    title: '',
-    price: '',
-    describe: '',
-    visibleFrom: '',
-    visibleUntil: '',
-    image: ''
-}
-
 class FormFormik extends Component {
-
+    
     //onSubmit FUNCTION
     onSubmit(values) {
         //List of form values
         console.log(callServer(values));
     }
-    state = {
-        image: null,
-    };
     render(){
-        let { image } = this.state;
+        
         return(
         <Formik
-            initialValues={initialValues}
+            initialValues={{
+                title: '',
+                price: '',
+                describe: '',
+                visibleFrom: '',
+                visibleUntil: '',
+                image: ''
+            }}
             onSubmit={this.onSubmit.bind(this)}
         >
         {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -109,18 +101,7 @@ class FormFormik extends Component {
                     value={values.visibleUntil}
                 />
                 {/* IMAGE BUTTON */}
-                <Button
-                    theme={{
-                        colors: {
-                            primary: "#006FB2"
-                        }
-                    }}
-                    mode="contained"
-                    style={styles.imageButton}
-                    onPress={() => {this._pickImage(handleChange('image'))}}
-                    >
-                        Adicione uma imagem
-                </Button>
+                    <ImageComponent/>
                 {/* SUBMIT BUTTON */}
                 <Button mode="contained" onPress={handleSubmit} style={styles.button}>Publicar</Button>
             </ScrollView>
@@ -129,37 +110,10 @@ class FormFormik extends Component {
         )
     }
     //GET PERMISSIONS FROM CAMERA
-    componentDidMount() {
-        this.getPermissionAsync();
-    }
-
-    getPermissionAsync = async () => {
-        if (Platform.OS !== 'web') {
-            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-            if (status !== 'granted') {
-            alert('Sorry, we need camera roll permissions to make this work!');
-            }
-        }
-    };
-
-    _pickImage = async () => {
-        try {
-            let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-            });
-            if (!result.cancelled) {
-            this.setState({ image: result.uri });
-            }
-            console.log(result);
-        } catch (E) {
-            console.log(E);
-        }
-    };
-};
+    
     //FINISH GET PERMISSIONS FROM CAMERA
+};
+    
 
 const styles = StyleSheet.create({
     button: {

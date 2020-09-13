@@ -1,62 +1,73 @@
-import React, { useState } from 'react';
-import {View, Text, ScrollView, Image} from 'react-native';
-
+import React, { useState, useEffect } from 'react';
+import {View, Text, ScrollView, Image, FlatList} from 'react-native';
 import Header from '../../home/HomeHeader';
-
 import styles from './Styles'
-import { FlatList } from 'react-native-gesture-handler';
+import api from '../../../services/api'
 
 function PublicacoesScreen() {
-  const [anuncios, setAnuncios] = useState([]);
+  const [publications, setPublications] = useState([]);
+
+  async function loadPublications(){
+    const response = await api.get();
+    setPublications(response.data);
+  }
+
+  useEffect(()=>{
+    loadPublications();
+  }, []);
+
   return (
     <View>
       <Header />
       <ScrollView>
         <FlatList
-          data={anuncios}
-        >
-          <View style={styles.publicacaoBox}>
-            <View style={styles.visivelBox}>
-              <View style={styles.visivelFromBox}>
-                <Text style={styles.visivelFrom}>Visível a Partir de: </Text>
-                <Text style={styles.statsFrom}>15.06.2020</Text>
+          data={publications}
+          keyExtractor={publications => String(publications.produtos.id)}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item: publications }) =>(
+            <View style={styles.publicacaoBox}>
+              <View style={styles.visivelBox}>
+                <View style={styles.visivelFromBox}>
+                  <Text style={styles.visivelFrom}>Visível a Partir de: </Text>
+                  <Text style={styles.statsFrom}>15.06.2020</Text>
+                </View>
+                <View style={styles.visiveUntillBox}>
+                  <Text style={styles.visivelUntil}>Disponível até: </Text>
+                  <Text style={styles.statsUntil}>20.06.2020</Text>
+                </View>
               </View>
-              <View style={styles.visiveUntillBox}>
-                <Text style={styles.visivelUntil}>Disponível até: </Text>
-                <Text style={styles.statsUntil}>20.06.2020</Text>
+              <Text style={styles.titleBox}>{publications.titulo}</Text>
+              <View style={styles.fotoBox}>
+                <View style={styles.item}>
+                  <Image
+                    style={styles.itemFoto}
+                    source={require('../../imgs/imagem_exemplo.jpg')}
+                  />
+                  <Text>R$ 38,49</Text>
+                </View>
+                <View style={styles.item}>
+                  <Image
+                    style={styles.itemFoto}
+                    source={require('../../imgs/imagem_exemplo.jpg')}
+                  />
+                  <Text>R$ 42,50</Text>
+                </View>
+                <View style={styles.item}>
+                  <Image
+                    style={styles.itemFoto}
+                    source={require('../../imgs/imagem_exemplo.jpg')}
+                  />
+                  <Text>R$ {publications.preco}</Text>
+                </View>
+              </View>
+              <View style={styles.descBox}>
+                <Text>
+                  {publications.descricao}
+                </Text>
               </View>
             </View>
-            <Text style={styles.textBox}>Grande Promoção de Ração para seu Cachorro</Text>
-            <View style={styles.fotoBox}>
-              <View style={styles.item}>
-                <Image
-                  style={styles.itemFoto}
-                  source={require('../../imgs/imagem_exemplo.jpg')}
-                />
-                <Text>R$ 38,49</Text>
-              </View>
-              <View style={styles.item}>
-                <Image
-                  style={styles.itemFoto}
-                  source={require('../../imgs/imagem_exemplo.jpg')}
-                />
-                <Text>R$ 42,50</Text>
-              </View>
-              <View style={styles.item}>
-                <Image
-                  style={styles.itemFoto}
-                  source={require('../../imgs/imagem_exemplo.jpg')}
-                />
-                <Text>R$ 40,99</Text>
-              </View>
-            </View>
-            <View style={styles.descBox}>
-              <Text>
-                Alimento para Cães Sabor Frango Assado SPEED DOG Pacote 10,1kg
-              </Text>
-            </View>
-          </View>
-        </FlatList>
+          )}
+        />
       </ScrollView>
     </View>
   );
