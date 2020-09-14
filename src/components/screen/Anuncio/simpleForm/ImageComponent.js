@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, SafeAreaView, Image } from 'react-native';
 
 import * as ImagePicker from 'expo-image-picker'
 
-export default function ImageComponent() {
-
-  const [selectedImg, setSelectedImg] = useState(null);
+export default function ImageComponent(props) {
+    const {dispatch, state} = props
+    const [selectedImg, setSelectedImg] = useState(null);
 
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -16,10 +16,10 @@ export default function ImageComponent() {
     }
 
     let pickerResult = await ImagePicker.launchImageLibraryAsync();
-    setSelectedImg({localUri: pickerResult.uri})
-    console.log(pickerResult.uri);
-  }
+    dispatch({payload: pickerResult.uri.uri, action: 'UPDATE_URI'})
 
+  }
+if(!state) return <Text>Carregando</Text>;
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -28,6 +28,7 @@ export default function ImageComponent() {
           style={styles.button}>
           <Text>Click</Text>
         </TouchableOpacity>
+        { state.image !=='' && <Image source={state.image.uri}/>}
       </View>
     </SafeAreaView>
   );
