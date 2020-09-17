@@ -1,25 +1,40 @@
-import React, { Component, useState, useReducer } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import React, { useState, useReducer } from 'react';
+import { ScrollView, StyleSheet, SafeAreaView, View, TouchableOpacity, Text } from 'react-native';
 
 //FORM IMPORTS
-import { Formik, useFormik } from 'formik';
+import { Formik } from 'formik';
 import { TextInput, Button } from 'react-native-paper';
 
 //IMAGEPICKER IMPORT
-
-import ImageComponent from './ImageComponent';
-
-import initialValues from './InitialValues';
+import * as ImagePicker from 'expo-image-picker'
+//import initialValues from './InitialValues';
 
 import Reducer from './Reducer';
 
-//BACKEND IMPORTS
-//import callServer from '../../../../services/callBackEnd'
-
-//class FormFormik extends  Component {
 function FormFormik(){
     const [state,dispatch] = useReducer( Reducer, initialValues);
-    console.log(state)
+    const [selectedImg, setSelectedImg] = useState(null);
+    const initialValues = {
+        title: '',
+        price: '',
+        describe: '',
+        visibleFrom: '',
+        visibleUntil: '',
+        image: selectedImg
+    }
+
+    let openImagePickerAsync = async () => {
+        let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
+
+        if (permissionResult.granted === false) {
+        alert("Permission to access camera roll is required!");
+        return;
+        }
+
+        let pickerResult = await ImagePicker.launchImageLibraryAsync();
+        setSelectedImg(pickerResult.uri)
+        console.log(pickerResult.uri);
+    }
     return(
         <Formik
             initialValues={initialValues}     onSubmit={values => console.log(values)}
@@ -93,12 +108,24 @@ function FormFormik(){
                         value={values.visibleUntil}
                     />
                     {/* IMAGE COMPONENT */}
-                    <ImageComponent dispatch={dispatch} state={state} />
+                    <SafeAreaView style={styles.container}>
+                        <View>
+                            <TouchableOpacity 
+                            onPress={openImagePickerAsync}
+                            style={styles.button}>
+                                <Text>Click</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </SafeAreaView>
                     {/* SUBMIT COMPONENT */}
                     <Button mode="contained" onPress={handleSubmit} style={styles.button}>Publicar</Button>
                 </ScrollView>
         )}
         </Formik>
+        //BACKEND IMPORTS
+        //import callServer from '../../../../services/callBackEnd'
+
+    //class FormFormik extends  Component {
 
     //onSubmit FUNCTION
     //onSubmit(values) {

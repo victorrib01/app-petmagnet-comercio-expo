@@ -2,19 +2,54 @@ import React, { useState, useEffect } from 'react';
 import {View, Text, ScrollView, Image, FlatList} from 'react-native';
 import Header from '../../home/HomeHeader';
 import styles from './Styles'
-import api from '../../../services/api'
+import axios from 'axios';
+//import api from '../../../services/api'
 
 function PublicacoesScreen() {
-  const [publications, setPublications] = useState([]);
+  const [publications, setPublications] = useState([
 
-  async function loadPublications(){
-    const response = await api.get();
-    setPublications(response.data);
-  }
+    {
+       idPublicacao : 1,
+       dtPublicacao :  '2020-09-14T11:59:24.165+00:00' ,
+       dtEncerramento :  '2020-10-14T11:59:24.165+00:00' ,
+       estabelecimento : {
+         cnpj :  46781973000106 ,
+         nome :  'PetShop do Bairro LTDA' ,
+         complEndereco :  '' ,
+         endereco : {
+           logradouro :  'Rua Abaetetuba' ,
+           numero :  123 ,
+           bairro :  'Jardim Califórnia' ,
+           cidade :  'Barueri' ,
+           pais :  'BR' ,
+           cep :  '06409-100' ,
+           latitude :  -23,4935611 ,
+           longitude :  -46,8959407 ,
+           uf :  'SP' 
+        },
+         idEstabelecimento : 1
+      },
+       anuncios : [
+        {
+           idAnuncio : 1,
+           idEstabelecimento : 1,
+           idColaborador : 1,
+           titulo :  'Título do anuncio' ,
+           descricao :  'descricao do anuncio' ,
+           produtos : [
+            {
+               idProduto : 1,
+               descricao :  'descricao do produto' ,
+               preco : 99,
+               imagem :  imagem anuncio 
+            }
+          ]
+        }
+      ],
+       links : []
+    },
 
-  useEffect(()=>{
-    loadPublications();
-  }, []);
+  ]);
 
   return (
     <View>
@@ -22,18 +57,20 @@ function PublicacoesScreen() {
       <ScrollView>
         <FlatList
           data={publications}
-          keyExtractor={publications => String(publications.produtos.id)}
+          keyExtractor={publications => String(publications.anuncios.idAnuncio)}
           showsVerticalScrollIndicator={false}
+          //onEndReached={loadPublications}
+          //onEndReachedThreshold={0.2}
           renderItem={({ item: publications }) =>(
             <View style={styles.publicacaoBox}>
               <View style={styles.visivelBox}>
                 <View style={styles.visivelFromBox}>
                   <Text style={styles.visivelFrom}>Visível a Partir de: </Text>
-                  <Text style={styles.statsFrom}>15.06.2020</Text>
+                  <Text style={styles.statsFrom}>{publications.anuncios.dtPublicacao}</Text>
                 </View>
                 <View style={styles.visiveUntillBox}>
                   <Text style={styles.visivelUntil}>Disponível até: </Text>
-                  <Text style={styles.statsUntil}>20.06.2020</Text>
+                  <Text style={styles.statsUntil}>{publications.dtEncerramento}</Text>
                 </View>
               </View>
               <Text style={styles.titleBox}>{publications.titulo}</Text>
@@ -57,7 +94,7 @@ function PublicacoesScreen() {
                     style={styles.itemFoto}
                     source={require('../../imgs/imagem_exemplo.jpg')}
                   />
-                  <Text>R$ {publications.preco}</Text>
+                  <Text>R$ </Text>
                 </View>
               </View>
               <View style={styles.descBox}>
@@ -68,6 +105,7 @@ function PublicacoesScreen() {
             </View>
           )}
         />
+        
       </ScrollView>
     </View>
   );
