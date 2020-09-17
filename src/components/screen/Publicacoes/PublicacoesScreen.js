@@ -7,47 +7,46 @@ import axios from 'axios';
 
 function PublicacoesScreen() {
   const [publications, setPublications] = useState([
-
-    {
-       idPublicacao : 1,
-       dtPublicacao :  '2020-09-14T11:59:24.165+00:00' ,
-       dtEncerramento :  '2020-10-14T11:59:24.165+00:00' ,
-       estabelecimento : {
-         cnpj :  46781973000106 ,
-         nome :  'PetShop do Bairro LTDA' ,
-         complEndereco :  '' ,
-         endereco : {
-           logradouro :  'Rua Abaetetuba' ,
-           numero :  123 ,
-           bairro :  'Jardim Califórnia' ,
-           cidade :  'Barueri' ,
-           pais :  'BR' ,
-           cep :  '06409-100' ,
-           latitude :  -23,4935611 ,
-           longitude :  -46,8959407 ,
-           uf :  'SP' 
-        },
-         idEstabelecimento : 1
+  {
+      idPublicacao : 1,
+      dtPublicacao :  '2020-09-14' ,
+      dtEncerramento :  '2020-10-14' ,
+      estabelecimento : {
+        cnpj :  46781973000106 ,
+        nome :  'PetShop do Bairro LTDA' ,
+        complEndereco :  '' ,
+        endereco : {
+          logradouro :  'Rua Abaetetuba' ,
+          numero :  123 ,
+          bairro :  'Jardim Califórnia' ,
+          cidade :  'Barueri' ,
+          pais :  'BR' ,
+          cep :  '06409-100' ,
+          latitude :  '-23,4935611' ,
+          longitude :  '-46,8959407' ,
+          uf :  'SP' 
       },
-       anuncios : [
-        {
-           idAnuncio : 1,
-           idEstabelecimento : 1,
-           idColaborador : 1,
-           titulo :  'Título do anuncio' ,
-           descricao :  'descricao do anuncio' ,
-           produtos : [
-            {
-               idProduto : 1,
-               descricao :  'descricao do produto' ,
-               preco : 99,
-               imagem :  imagem anuncio 
-            }
-          ]
-        }
-      ],
-       links : []
+        idEstabelecimento : 1
     },
+      anuncios : [
+      {
+          idAnuncio : 1,
+          idEstabelecimento : 1,
+          idColaborador : 1,
+          titulo :  'Título do anuncio' ,
+          descricao :  'descricao do anuncio' ,
+          produtos : [
+          {
+              idProduto : 1,
+              descricao :  'descricao do produto' ,
+              preco : 99,
+              imagem :  'imagem anuncio' 
+          }
+        ]
+      }
+    ],
+      links : []
+  },
 
   ]);
 
@@ -66,7 +65,7 @@ function PublicacoesScreen() {
               <View style={styles.visivelBox}>
                 <View style={styles.visivelFromBox}>
                   <Text style={styles.visivelFrom}>Visível a Partir de: </Text>
-                  <Text style={styles.statsFrom}>{publications.anuncios.dtPublicacao}</Text>
+                  <Text style={styles.statsFrom}>{publications.dtPublicacao}</Text>
                 </View>
                 <View style={styles.visiveUntillBox}>
                   <Text style={styles.visivelUntil}>Disponível até: </Text>
@@ -94,7 +93,7 @@ function PublicacoesScreen() {
                     style={styles.itemFoto}
                     source={require('../../imgs/imagem_exemplo.jpg')}
                   />
-                  <Text>R$ </Text>
+                  <Text>R$ {publications.anuncios.produtos[0].preco}</Text>
                 </View>
               </View>
               <View style={styles.descBox}>

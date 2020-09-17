@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-import styles from './Styles'
+import styles from './styles'
 
 import Header from '../../home/HomeHeader';
 import Date from '../../home/DateComponent'
