@@ -60,19 +60,19 @@ function PublicacoesScreen() {
           showsVerticalScrollIndicator={false}
           //onEndReached={loadPublications}
           //onEndReachedThreshold={0.2}
-          renderItem={({ item: publications }) =>(
+          renderItem={({ item: publication }) =>(
             <View style={styles.publicacaoBox}>
               <View style={styles.visivelBox}>
                 <View style={styles.visivelFromBox}>
                   <Text style={styles.visivelFrom}>Visível a Partir de: </Text>
-                  <Text style={styles.statsFrom}>{publications.dtPublicacao}</Text>
+                  <Text style={styles.statsFrom}>{publication.dtPublicacao}</Text>
                 </View>
                 <View style={styles.visiveUntillBox}>
                   <Text style={styles.visivelUntil}>Disponível até: </Text>
-                  <Text style={styles.statsUntil}>{publications.dtEncerramento}</Text>
+                  <Text style={styles.statsUntil}>{publication.dtEncerramento}</Text>
                 </View>
               </View>
-              <Text style={styles.titleBox}>{publications.titulo}</Text>
+              <Text style={styles.titleBox}>{publication.titulo}</Text>
               <View style={styles.fotoBox}>
                 <View style={styles.item}>
                   <Image
@@ -93,12 +93,12 @@ function PublicacoesScreen() {
                     style={styles.itemFoto}
                     source={require('../../imgs/imagem_exemplo.jpg')}
                   />
-                  <Text>R$ {publications.anuncios.produtos[0].preco}</Text>
+                  <Text>R$ {publication.anuncios.produtos[0].preco}</Text>
                 </View>
               </View>
               <View style={styles.descBox}>
                 <Text>
-                  {publications.descricao}
+                  {publication.descricao}
                 </Text>
               </View>
             </View>
