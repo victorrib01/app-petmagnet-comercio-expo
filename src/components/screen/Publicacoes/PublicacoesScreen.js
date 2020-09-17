@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {View, Text, ScrollView, Image, FlatList} from 'react-native';
 import Header from '../../home/HomeHeader';
-import styles from './Styles'
+import styles from './styles'
 import api from '../../../services/api'
 
 function PublicacoesScreen() {
@@ -20,11 +20,7 @@ function PublicacoesScreen() {
     <View>
       <Header />
       <ScrollView>
-        <FlatList
-          data={publications}
-          keyExtractor={publications => String(publications.produtos.id)}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item: publications }) =>(
+        
             <View style={styles.publicacaoBox}>
               <View style={styles.visivelBox}>
                 <View style={styles.visivelFromBox}>
@@ -62,12 +58,12 @@ function PublicacoesScreen() {
               </View>
               <View style={styles.descBox}>
                 <Text>
-                  {publications.descricao}
+                  etutbaufsbajbjsabfjasbjfsabjbasjfbajsbjjfba
                 </Text>
               </View>
             </View>
-          )}
-        />
+        
+        
       </ScrollView>
     </View>
   );

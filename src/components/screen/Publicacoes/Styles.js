@@ -4,7 +4,7 @@ import {publicacaoBox, visivelBox, fotoBox, descBox} from '../../../assets/helpe
 
 export default StyleSheet.create({
     view:{
-        marginBottom: 60
+        marginBottom: 60,
     },
     publicacaoView: {
         flexDirection: 'column',
