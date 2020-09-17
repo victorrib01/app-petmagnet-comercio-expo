@@ -1,25 +1,28 @@
-import React, { Component, useState, useReducer } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import React from 'react';
+import { ScrollView } from 'react-native';
+
+import styles from './styles'
 
 //FORM IMPORTS
-import { Formik, useFormik } from 'formik';
+import { Formik } from 'formik';
 import { TextInput, Button } from 'react-native-paper';
+//import initialValues from './InitialValues';
 
 //IMAGEPICKER IMPORT
-
 import ImageComponent from './ImageComponent';
-
-import initialValues from './InitialValues';
-
 import Reducer from './Reducer';
 
-//BACKEND IMPORTS
-//import callServer from '../../../../services/callBackEnd'
+const initialValues = {
+    title: '',
+    price: '',
+    describe: '',
+    visibleFrom: '',
+    visibleUntil: '',
+    image: ''
+}
 
-//class FormFormik extends  Component {
 function FormFormik(){
-    const [state,dispatch] = useReducer( Reducer, initialValues);
-    console.log(state)
+    //const [state,dispatch] = useReducer( Reducer, initialValues);
     return(
         <Formik
             initialValues={initialValues}     onSubmit={values => console.log(values)}
@@ -93,56 +96,16 @@ function FormFormik(){
                         value={values.visibleUntil}
                     />
                     {/* IMAGE COMPONENT */}
-                    <ImageComponent dispatch={dispatch} state={state} />
+                    <Button
+                    icon="add-a-photo" mode="contained" style={styles.button}
+                    onPress={() => {this._pickImage(handleChange('image'))}}
+                    >Pick an image from camera roll</Button>
                     {/* SUBMIT COMPONENT */}
                     <Button mode="contained" onPress={handleSubmit} style={styles.button}>Publicar</Button>
                 </ScrollView>
         )}
         </Formik>
-
-    //onSubmit FUNCTION
-    //onSubmit(values) {
-    //    //List of form values
-    //    console.log(values);
-    //}
-    //render(){
-    //    return(
-    //    <Formik
-    //        initialValues={{
-     //           title: '',
-     //           price: '',
-     //           describe: '',
-     //           visibleFrom: '',
-     //           visibleUntil: '',
-     //           image: ''
-     //       }}
-     //       onSubmit={this.onSubmit.bind(this)}
-     //   >
-     //   {({ handleChange, handleBlur, handleSubmit, values }) => (
-     //       
-     //       )}
-     //   </Formik>
-      //  )
-    //}
-    //GET PERMISSIONS FROM CAMERA
-    
-    //FINISH GET PERMISSIONS FROM CAMERA
     )};
     
-
-const styles = StyleSheet.create({
-    button: {
-        padding: 10,
-        marginLeft: 10,
-        marginRight: 10,
-        marginTop: 50,
-    },
-    imageButton: {
-        padding: 10,
-        marginLeft: 5,
-        marginRight: 5,
-        marginTop: 10
-    },
-});
 
 export default FormFormik;

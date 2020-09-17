@@ -4,8 +4,8 @@ import { Text, View, TouchableOpacity, StyleSheet, SafeAreaView, Image } from 'r
 import * as ImagePicker from 'expo-image-picker'
 
 export default function ImageComponent(props) {
-    const {dispatch, state} = props
-    const [selectedImg, setSelectedImg] = useState(null);
+  const {dispatch, state} = props
+  const [selectedImg,setSelectedImg] = useState(null);
 
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -16,10 +16,12 @@ export default function ImageComponent(props) {
     }
 
     let pickerResult = await ImagePicker.launchImageLibraryAsync();
-    dispatch({payload: pickerResult.uri.uri, action: 'UPDATE_URI'})
-
+    setSelectedImg(pickerResult.uri)
+    console.log(selectedImg)
   }
+
 if(!state) return <Text>Carregando</Text>;
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
