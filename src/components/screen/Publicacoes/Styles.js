@@ -3,15 +3,7 @@ import {StyleSheet} from 'react-native';
 import {publicacaoBox, visivelBox, fotoBox, descBox} from '../../../assets/helper/Colors';
 
 export default StyleSheet.create({
-    view:{
-        marginBottom: 60,
-    },
-    publicacaoView: {
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-    },
-    publicacaoBox: {
+    publicationsBox: {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
@@ -22,7 +14,7 @@ export default StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
-        marginBottom: 10,
+        marginBottom: 90,
         elevation: 2,
     },
     visivelBox: {
@@ -36,13 +28,6 @@ export default StyleSheet.create({
         borderColor: '#000000',
         borderBottomWidth: 0.3
     },
-    visivelFromBox: {
-        flexDirection: 'row',
-        marginBottom: -25
-    },
-    visiveUntillBox: {
-        flexDirection: 'row',
-    },
     fotoBox: {
         flexDirection: 'row',
         justifyContent: 'space-around',
@@ -53,6 +38,19 @@ export default StyleSheet.create({
         height: 140,
         marginBottom: 10
     },
+    visivelFromBox: {
+        flexDirection: 'row',
+        marginBottom: -25
+    },
+    visiveUntillBox: {
+        flexDirection: 'row',
+    },
+    publicacaoView: {
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+    
     text: {
         zIndex: 5,
     },

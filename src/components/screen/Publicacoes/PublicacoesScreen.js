@@ -1,70 +1,73 @@
 import React, { useState, useEffect } from 'react';
-import {View, Text, ScrollView, Image, FlatList} from 'react-native';
+import {View, Text, Image, FlatList } from 'react-native';
 import Header from '../../home/HomeHeader';
 import styles from './styles'
 import api from '../../../services/api'
+
 
 function PublicacoesScreen() {
   const [publications, setPublications] = useState([]);
 
   async function loadPublications(){
-    const response = await api.get();
-    setPublications(response.data);
+   const response = await api.get('/API/publicacoes/estabelecimento/1');
+   setPublications(response.data)
+   console.log(response.data)
   }
 
   useEffect(()=>{
     loadPublications();
   }, []);
 
+
   return (
     <View>
-      <Header />
-      <ScrollView>
-        
-            <View style={styles.publicacaoBox}>
+      <Header/>
+        <FlatList 
+          data={publications}
+          keyExtractor={publication => String(publication.idPublicacao)}
+          renderItem={({item: publication}) => (
+            <View style={styles.publicationsBox}>
               <View style={styles.visivelBox}>
                 <View style={styles.visivelFromBox}>
                   <Text style={styles.visivelFrom}>Visível a Partir de: </Text>
-                  <Text style={styles.statsFrom}>15.06.2020</Text>
+                  <Text style={styles.statsFrom}>{publication.dtPublicacao}</Text>
                 </View>
                 <View style={styles.visiveUntillBox}>
                   <Text style={styles.visivelUntil}>Disponível até: </Text>
-                  <Text style={styles.statsUntil}>20.06.2020</Text>
+                  <Text style={styles.statsUntil}>{publication.dtEncerramento}</Text>
                 </View>
               </View>
-              <Text style={styles.titleBox}>{publications.titulo}</Text>
+              <Text></Text>
               <View style={styles.fotoBox}>
                 <View style={styles.item}>
                   <Image
                     style={styles.itemFoto}
-                    source={require('../../imgs/imagem_exemplo.jpg')}
+                    source={require('../../../assets/images/imagem.jpg')}
                   />
-                  <Text>R$ 38,49</Text>
+                  <Text>R$ {publication.anuncios.produtos.preco":}</Text>
                 </View>
                 <View style={styles.item}>
                   <Image
                     style={styles.itemFoto}
-                    source={require('../../imgs/imagem_exemplo.jpg')}
+                    source={require('../../../assets/images/imagem.jpg')}
                   />
-                  <Text>R$ 42,50</Text>
+                  <Text>R$ </Text>
                 </View>
                 <View style={styles.item}>
                   <Image
                     style={styles.itemFoto}
-                    source={require('../../imgs/imagem_exemplo.jpg')}
+                    source={require('../../../assets/images/imagem.jpg')}
                   />
-                  <Text>R$ {publications.preco}</Text>
+                  <Text>R$ </Text>
                 </View>
               </View>
               <View style={styles.descBox}>
                 <Text>
-                  etutbaufsbajbjsabfjasbjfsabjbasjfbajsbjjfba
+                  
                 </Text>
               </View>
             </View>
-        
-        
-      </ScrollView>
+        )}/>
     </View>
   );
 }

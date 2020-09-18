@@ -7,4 +7,4 @@ const initialValues = {
     image: ''
 }
 
-    export default initialValues
+export default initialValues
