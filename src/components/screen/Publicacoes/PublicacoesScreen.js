@@ -44,7 +44,7 @@ function PublicacoesScreen() {
                     style={styles.itemFoto}
                     source={require('../../../assets/images/imagem.jpg')}
                   />
-                  <Text>R$ {publication.anuncios.produtos.preco":}</Text>
+                  <Text>R$ {publication.anuncios.produtos.preco}</Text>
                 </View>
                 <View style={styles.item}>
                   <Image
