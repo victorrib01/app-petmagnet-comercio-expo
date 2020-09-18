@@ -2,15 +2,18 @@ import React, { Component } from 'react'
 import * as ImagePicker  from 'expo-image-picker';
 import { Formik } from 'formik';
 import { Button, TextInput } from 'react-native-paper';
-import { Alert, Keyboard, View, StyleSheet } from 'react-native';
-
+import {  Keyboard, View, StyleSheet } from 'react-native';
+import * as yup from 'yup'
 import initialValues from './InitialValues'
+
+import _callBackEnd from '../../../../services/callBackEnd'
 
 export default class ClassFormFormik extends Component {
     onSubmit(values) {
         //List of form values
         console.log(values);
         //Alert.alert(JSON.stringify(values));
+        _callBackEnd(values);
         Keyboard.dismiss();
     }
     
@@ -28,6 +31,13 @@ export default class ClassFormFormik extends Component {
         return (
             <View style={[styles.container, styles.content]}>
                 <Formik 
+                validationSchema={yup.object().shape({
+                    title: yup.string().required(),
+                    price: yup.number().required(),
+                    describe: yup.string().required(),
+                    visibleFrom: yup.string().required(),
+                    visibleUntil: yup.string().required(),
+                })}
                 initialValues={initialValues} 
                 onSubmit={this.onSubmit.bind(this)}>
                 {({ handleChange, handleBlur, handleSubmit, values }) => (
