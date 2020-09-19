@@ -7,8 +7,8 @@ Icon.loadFont();
 
 //Import Telas da aplicacao
 import HomeScreen from '../../components/screen/Home/HomeScreen';
-import AnuncioScreen from '../../components/screen/Anuncio/AnuncioScreen';
-import PublicacoesScreen from '../../components/screen/Publicacoes/PublicacoesScreen';
+import AdScreen from '../../components/screen/Ad/AdScreen';
+import PublicationsScreen from '../screen/Publications/PublicationsScreen';
 
 import {footerColor, white} from '../../assets/helper/Colors';
 
@@ -32,7 +32,7 @@ function TabScreen() {
             />
             <Tab.Screen
                 name="Anúncios"
-                component={AnuncioScreen}
+                component={AdScreen}
                 options={{
                     tabBarLabel: 'Anúncios',
                     tabBarIcon: ({color}) => (
@@ -42,7 +42,7 @@ function TabScreen() {
             />
             <Tab.Screen
                 name="Publicações"
-                component={PublicacoesScreen}
+                component={PublicationsScreen}
                 options={{
                     tabBarLabel: 'Publicações',
                     tabBarIcon: ({color}) => (

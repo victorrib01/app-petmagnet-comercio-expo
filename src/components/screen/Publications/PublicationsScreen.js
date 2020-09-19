@@ -7,9 +7,10 @@ import api from '../../../services/api'
 
 function PublicacoesScreen() {
   const [publications, setPublications] = useState([]);
+  
 
   async function loadPublications(){
-   const response = await api.get('/API/publicacoes/estabelecimento/1');
+   const response = await api.get('/listAds');
    setPublications(response.data)
    console.log(response.data)
   }
@@ -44,26 +45,25 @@ function PublicacoesScreen() {
                     style={styles.itemFoto}
                     source={require('../../../assets/images/imagem.jpg')}
                   />
-                  <Text>R$ {publication.anuncios.produtos.preco}</Text>
+                  <Text>R$ 11</Text>
+                </View>
+                <View style={styles.item}>
+                  <Image
+                    source={require('../../../assets/images/imagem.jpg')} style={styles.itemFoto}
+                  />
+                  <Text>R$ 11</Text>
                 </View>
                 <View style={styles.item}>
                   <Image
                     style={styles.itemFoto}
                     source={require('../../../assets/images/imagem.jpg')}
                   />
-                  <Text>R$ </Text>
-                </View>
-                <View style={styles.item}>
-                  <Image
-                    style={styles.itemFoto}
-                    source={require('../../../assets/images/imagem.jpg')}
-                  />
-                  <Text>R$ </Text>
+                  <Text>R$ 11</Text>
                 </View>
               </View>
               <View style={styles.descBox}>
                 <Text>
-                  
+                  DESCRICSAOO
                 </Text>
               </View>
             </View>
