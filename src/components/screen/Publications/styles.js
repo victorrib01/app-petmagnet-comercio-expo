@@ -3,6 +3,9 @@ import {StyleSheet} from 'react-native';
 import {publicacaoBox, visivelBox, fotoBox, descBox} from '../../../assets/helper/Colors';
 
 export default StyleSheet.create({
+    publicacaoView: {
+        height:"100%"
+    },
     publicationsBox: {
         flexDirection: 'column',
         justifyContent: 'center',
@@ -10,23 +13,22 @@ export default StyleSheet.create({
         alignSelf: 'stretch',
         textAlign: 'center',
         marginTop: 5,
+        marginBottom: 20,
         backgroundColor: publicacaoBox,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.2,
-        marginBottom: 90,
         elevation: 2,
     },
     visivelBox: {
         flexDirection: 'column',
         justifyContent: 'space-around',
         alignItems: 'center',
-        alignItems: 'center',
         alignSelf: 'stretch',
         backgroundColor: visivelBox,
         height: 60,
         borderColor: '#000000',
-        borderBottomWidth: 0.3
+        borderBottomWidth: 0.3,
     },
     fotoBox: {
         flexDirection: 'row',
@@ -35,22 +37,16 @@ export default StyleSheet.create({
         alignSelf: 'stretch',
         textAlign: 'center',
         backgroundColor: fotoBox,
-        height: 140,
-        marginBottom: 10
+        height: 130,
+        marginBottom: 10,
     },
     visivelFromBox: {
         flexDirection: 'row',
-        marginBottom: -25
+        marginBottom: -25,
     },
     visiveUntillBox: {
         flexDirection: 'row',
     },
-    publicacaoView: {
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-    },
-    
     text: {
         zIndex: 5,
     },
@@ -60,12 +56,18 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     itemFoto: {
-        width: 100,
-        height: 100,
+        width: 105,
+        height: 105,
     },
     descBox: {
         backgroundColor: descBox,
         borderTopRightRadius: 25,
         height: 60,
+        width: '100%',
     },
+    textDesc: {
+        textAlign:"center",
+        marginTop: 5,
+        // marginLeft: 20
+    }
 });

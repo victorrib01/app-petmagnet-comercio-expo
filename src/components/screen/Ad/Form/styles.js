@@ -2,10 +2,10 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
     button: {
-        padding: 10,
-        marginLeft: 10,
-        marginRight: 10,
-        marginTop: 50,
+        marginLeft: 20,
+        marginRight: 20,
+        marginTop: 35,
+        padding: 5
     },
     imageButton: {
         padding: 10,
