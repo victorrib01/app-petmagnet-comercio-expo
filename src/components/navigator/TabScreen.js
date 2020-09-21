@@ -6,9 +6,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 Icon.loadFont();
 
 //Import Telas da aplicacao
-import HomeScreen from '../../components/screen/Home/HomeScreen';
-import AnuncioScreen from '../../components/screen/Anuncio/AnuncioScreen';
-import PublicacoesScreen from '../../components/screen/Publicacoes/PublicacoesScreen';
+import Home from '../../components/screen/Home';
+import Ad from '../../components/screen/Ad';
+import Publications from '../screen/Publications';
 
 import {footerColor, white} from '../../assets/helper/Colors';
 
@@ -22,7 +22,7 @@ function TabScreen() {
             barStyle={{backgroundColor: footerColor}}>
             <Tab.Screen
                 name="Home"
-                component={HomeScreen}
+                component={Home}
                 options={{
                     tabBarLabel: 'Home',
                     tabBarIcon: ({color}) => (
@@ -32,7 +32,7 @@ function TabScreen() {
             />
             <Tab.Screen
                 name="Anúncios"
-                component={AnuncioScreen}
+                component={Ad}
                 options={{
                     tabBarLabel: 'Anúncios',
                     tabBarIcon: ({color}) => (
@@ -42,7 +42,7 @@ function TabScreen() {
             />
             <Tab.Screen
                 name="Publicações"
-                component={PublicacoesScreen}
+                component={Publications}
                 options={{
                     tabBarLabel: 'Publicações',
                     tabBarIcon: ({color}) => (

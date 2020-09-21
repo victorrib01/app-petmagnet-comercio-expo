@@ -6,7 +6,9 @@ import styles from './styles'
 import Header from '../../home/HomeHeader';
 import Date from '../../home/DateComponent'
 
-const HomeScreen = () => {
+
+
+const Home = () => {
   return (
     <View>
       <Header />
@@ -36,4 +38,4 @@ const HomeScreen = () => {
   );
 }
 
-export default HomeScreen;
+export default Home;

@@ -2,17 +2,17 @@ import React from 'react';
 import { View } from 'react-native';
 
 import Header from '../../home/HomeHeader';
-import SimpleForm from './simpleForm/FormFormik';
+import Form from './Form/index';
 
-class AnuncioScreen extends React.Component {
+class Ad extends React.Component {
   render() {
     return (
       <View>
         <Header />
-        <SimpleForm />
+        <Form />
       </View>
     );
   }
 }
 
-export default AnuncioScreen;
+export default Ad;
