@@ -44,7 +44,7 @@ function Publications() {
                 <Text style={styles.visivelUntil}>Disponível até: </Text>
                 <Text style={styles.statsUntil}>{publication.visible_to}</Text>
               </View>
-              <Button onPress={deleteAd}>Deletar</Button>
+              
             </View>
             <Text></Text>
             <View style={styles.fotoBox}>
