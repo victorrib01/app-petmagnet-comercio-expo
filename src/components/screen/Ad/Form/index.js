@@ -8,7 +8,11 @@ import initialValues from './components/InitialValues'
 import styles from './styles'
 import firebase from '../../../../services/firebase';
 
-export default class ClassFormFormik extends Component {
+export default class Form extends Component {
+    state = {
+        url: '',
+        progress: 0
+    }
 
     async onSubmit(values) {
         //List of form values
@@ -19,6 +23,7 @@ export default class ClassFormFormik extends Component {
     }
 
     createAd(values) {
+        
         try {
             firebase.database().ref('/crud').push({
                 title: values.title,
@@ -26,12 +31,40 @@ export default class ClassFormFormik extends Component {
                 describe: values.describe,
                 visibleFrom: values.visibleFrom,
                 visibleTo: values.visibleTo,
-                image: values.image
+                image: this.state.url
             })
 
         } catch (error) {
             alert(error);
         }
+    }
+    //TODO - UPLOADIMAGE
+    async uploadImage(uri, values) {
+        const response = await fetch(uri);
+        const blob = await response.blob();
+    
+        const uploadTask = await firebase
+            .storage()
+            .ref(`images/${values.key}`)
+            .put(blob);
+            uploadTask.on('state_changed', 
+            (snapshot) => {
+              // progrss function ....
+              const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+              this.setState({progress});
+            }, 
+            (error) => {
+                 // error function ....
+              console.log(error);
+            }, 
+          () => {
+              // complete function ....
+              storage.ref('images').child(image.name).getDownloadURL().then(url => {
+                  console.log(url);
+                  this.setState({url});
+              })
+          });
+
     }
 
     async pickImage(handleChange, values) {
@@ -52,20 +85,6 @@ export default class ClassFormFormik extends Component {
         }
     }
 
-    //TODO - UPLOADIMAGE
-    async uploadImage(uri, values) {
-        const response = await fetch(uri);
-        const blob = await response.blob();
-    
-        const ref = await firebase
-            .storage()
-            .ref('images')
-            .put(blob);
-
-        const url = ref.getDownloadURL();
-        values.image = url
-        return url;
-    }
 
 
     render() {
