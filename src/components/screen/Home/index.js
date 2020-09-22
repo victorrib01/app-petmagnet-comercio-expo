@@ -15,7 +15,7 @@ const Home = () => {
   const [ads, setAds] = useState([]);
 
   useEffect(() => {
-      firebase.database().ref('/crud').on('value', (snapshot) => {
+      firebase.database().ref('/ads').on('value', (snapshot) => {
         const list = [];
         snapshot.forEach((childItem) => {
           list.push({

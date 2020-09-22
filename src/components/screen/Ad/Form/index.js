@@ -22,21 +22,28 @@ export default class Form extends Component {
         Keyboard.dismiss();
     }
 
-    createAd(values) {
+    async createAd(values) {
         
         try {
-            firebase.database().ref('/crud').push({
+            await firebase.database().ref('/ads').push({
                 title: values.title,
                 price: values.price,
                 describe: values.describe,
                 visibleFrom: values.visibleFrom,
                 visibleTo: values.visibleTo,
-                image: this.state.url
+                image: values.image
             })
 
         } catch (error) {
             alert(error);
         }
+        await this.uploadImage( values.image, values.key)
+                .then(() => {
+                    Alert.alert("Success");
+                })
+                .catch((error) => {
+                    Alert.alert(error)
+                })
     }
     //TODO - UPLOADIMAGE
     async uploadImage(uri, values) {
@@ -67,7 +74,7 @@ export default class Form extends Component {
 
     }
 
-    async pickImage(handleChange, values) {
+    async pickImage(handleChange) {
         let result = await ImagePicker.launchImageLibraryAsync({
             allowsEditing: true,
             aspect: [4, 3]
@@ -75,13 +82,6 @@ export default class Form extends Component {
         //console.log(result)
         if (!result.cancelled) {
             handleChange(result.uri)
-            this.uploadImage(result.uri, values)
-                .then(() => {
-                    Alert.alert("Success");
-                })
-                .catch((error) => {
-                    Alert.alert(error)
-                })
         }
     }
 

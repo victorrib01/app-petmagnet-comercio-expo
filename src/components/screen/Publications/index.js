@@ -11,18 +11,17 @@ function Publications() {
 
   useEffect(() => {
     try {
-      firebase.database().ref('/crud').on('value', (snapshot) => {
+      firebase.database().ref('/ads').on('value', (snapshot) => {
         const list = [];
         snapshot.forEach((childItem) => {
           list.push({
             key: childItem.key,
-            age: childItem.val().age,
-            name: childItem.val().name,
             title: childItem.val().title,
             price: childItem.val().price,
             describe: childItem.val().describe,
             visibleFrom: childItem.val().visibleFrom,
             visibleTo: childItem.val().visibleTo,
+            image: childItem.val().image
           });
         });
         setListAds(list);
@@ -34,7 +33,7 @@ function Publications() {
   }, [])
 
   function delAd(key) {
-    firebase.database().ref('/crud/' + key).remove()
+    firebase.database().ref('/ads/' + key).remove()
   }
 
   return (
@@ -63,7 +62,7 @@ function Publications() {
               <View style={styles.item}>
                 <Image
                   style={styles.itemFoto}
-                  source={require('../../../assets/images/imagem.jpg')}
+                  source={{uri: `${item.image}`}}
                 />
                 <Text>R$ {item.price}</Text>
               </View>
