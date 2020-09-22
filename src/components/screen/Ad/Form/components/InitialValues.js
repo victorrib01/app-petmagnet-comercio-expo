@@ -5,6 +5,7 @@ const initialValues = {
     visibleFrom: '',
     visibleTo: '',
     image: '',
+    number: '',
     estabilishment_id: '4ROchfT9WUZ4gQeaE2mH'
 }
 

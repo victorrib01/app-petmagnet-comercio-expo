@@ -23,7 +23,7 @@ export default class Form extends Component {
     }
 
     async createAd(values) {
-        
+
         try {
             await firebase.database().ref('/ads').push({
                 title: values.title,
@@ -31,46 +31,47 @@ export default class Form extends Component {
                 describe: values.describe,
                 visibleFrom: values.visibleFrom,
                 visibleTo: values.visibleTo,
-                image: values.image
+                image: values.image,
+                number: values.number
             })
 
         } catch (error) {
             alert(error);
         }
-        await this.uploadImage( values.image, values.key)
-                .then(() => {
-                    Alert.alert("Success");
-                })
-                .catch((error) => {
-                    Alert.alert(error)
-                })
+        await this.uploadImage(values.image, values.key)
+            .then(() => {
+                Alert.alert("Success");
+            })
+            .catch((error) => {
+                Alert.alert(error)
+            })
     }
     //TODO - UPLOADIMAGE
     async uploadImage(uri, values) {
         const response = await fetch(uri);
         const blob = await response.blob();
-    
+
         const uploadTask = await firebase
             .storage()
             .ref(`images/${values.key}`)
             .put(blob);
-            uploadTask.on('state_changed', 
+        uploadTask.on('state_changed',
             (snapshot) => {
-              // progrss function ....
-              const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-              this.setState({progress});
-            }, 
+                // progrss function ....
+                const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                this.setState({ progress });
+            },
             (error) => {
-                 // error function ....
-              console.log(error);
-            }, 
-          () => {
-              // complete function ....
-              storage.ref('images').child(image.name).getDownloadURL().then(url => {
-                  console.log(url);
-                  this.setState({url});
-              })
-          });
+                // error function ....
+                console.log(error);
+            },
+            () => {
+                // complete function ....
+                storage.ref('images').child(image.name).getDownloadURL().then(url => {
+                    console.log(url);
+                    this.setState({ url });
+                })
+            });
 
     }
 
@@ -84,8 +85,6 @@ export default class Form extends Component {
             handleChange(result.uri)
         }
     }
-
-
 
     render() {
         return (
@@ -163,6 +162,19 @@ export default class Form extends Component {
                                 onBlur={handleBlur('visibleTo')}
                                 value={values.visibleTo}
                             />
+                            {/* NUMBER INPUT */}
+                            <TextInput
+                                theme={{
+                                    colors: {
+                                        primary: "#006FB2"
+                                    }
+                                }}
+                                label="Número para contato:"
+                                onChangeText={handleChange('number')}
+                                placeholder="Utilize do padrão 11 99999 9999. Exemplo: 11987654321"
+                                onBlur={handleBlur('number')}
+                                value={values.number}
+                            />
                             {/* <DatePicker handleChange={handleChange} /> */}
                             {/* Image Picker INPUT */}
                             <Button
@@ -185,7 +197,6 @@ export default class Form extends Component {
                         </View>
                     )}
                 </Formik>
-
             </ScrollView>
         )
     }

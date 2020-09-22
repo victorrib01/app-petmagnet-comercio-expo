@@ -21,7 +21,8 @@ function Publications() {
             describe: childItem.val().describe,
             visibleFrom: childItem.val().visibleFrom,
             visibleTo: childItem.val().visibleTo,
-            image: childItem.val().image
+            image: childItem.val().image,
+            number: childItem.val().number
           });
         });
         setListAds(list);
@@ -57,12 +58,13 @@ function Publications() {
             <TouchableOpacity style={styles.btnEnviar} onPress={() => { delAd(item.key) }}>
               <Icon name="trash-alt" size={26} />
             </TouchableOpacity>
+            <Text>{item.number}</Text>
             <Text>{item.title}</Text>
             <View style={styles.fotoBox}>
               <View style={styles.item}>
                 <Image
                   style={styles.itemFoto}
-                  source={{uri: `${item.image}`}}
+                  source={{ uri: `${item.image}` }}
                 />
                 <Text>R$ {item.price}</Text>
               </View>
