@@ -2,49 +2,39 @@ import React, { Component } from 'react'
 import * as ImagePicker from 'expo-image-picker';
 import { Formik } from 'formik';
 import { Button, TextInput } from 'react-native-paper';
-import { Keyboard, View } from 'react-native';
+import { Keyboard, ScrollView, View, Alert } from 'react-native';
 import validationSchema from './components/Validation'
 import initialValues from './components/InitialValues'
-import api from '../../../../services/api';
 import styles from './styles'
-import * as firebase from 'firebase';
+import firebase from '../../../../services/firebase';
 
 export default class ClassFormFormik extends Component {
+
     async onSubmit(values) {
         //List of form values
         //backend boy = {description, price, title, visible_from, visible_to, estabilishment_id, image_url}
         console.log(values)
-        this.sendForm(values);
+        this.createAd(values)
         Keyboard.dismiss();
     }
-    async sendForm(values){
-        //firebase connection
-        // await api.post(`/createAd`, {
-        //     estabilishment_id: initialValues.estabilishment_id,
-        //     title: values.title,
-        //     price: values.price,
-        //     description: values.describe,
-        //     visible_from: values.visibleFrom,
-        //     visible_to: values.visibleTo,
-        //     image_url: values.image,
-        // })
-        //Heroku connection
-        await api.post(`/API/anuncios/publicar`, {
-            idEstabelecimento: 1,
-            idColaborador: 1,
-            titulo: values.title,
-            descricao: values.describe,
-            preco: values.price,
-        })
-        await this.uploadImage(values.image)
-        .then(() => {
-          Alert.alert("Success");
-        })
-        .catch((error) => {
-          Alert.alert(error);
-        });
+
+    createAd(values) {
+        try {
+            firebase.database().ref('/crud').push({
+                title: values.title,
+                price: values.price,
+                describe: values.describe,
+                visibleFrom: values.visibleFrom,
+                visibleTo: values.visibleTo,
+                image: values.image
+            })
+
+        } catch (error) {
+            alert(error);
+        }
     }
-    async pickImage(handleChange) {
+
+    async pickImage(handleChange, values) {
         let result = await ImagePicker.launchImageLibraryAsync({
             allowsEditing: true,
             aspect: [4, 3]
@@ -52,28 +42,35 @@ export default class ClassFormFormik extends Component {
         //console.log(result)
         if (!result.cancelled) {
             handleChange(result.uri)
+            this.uploadImage(result.uri, values)
+                .then(() => {
+                    Alert.alert("Success");
+                })
+                .catch((error) => {
+                    Alert.alert(error)
+                })
         }
     }
+
     //TODO - UPLOADIMAGE
-    async uploadImage(uri){
-        let formData = new FormData();
+    async uploadImage(uri, values) {
         const response = await fetch(uri);
         const blob = await response.blob();
-        const id = 1
+    
+        const ref = await firebase
+            .storage()
+            .ref('images')
+            .put(blob);
 
-        formData.append("imageFile", blob, `ad_image_${id}`)
-        
-        await api.post('/API/anuncios/uploadImagem', {
-            idEstabelecimento: 1,
-            idAnuncio: 1,
-            idProduto: 1
-        })
-        // const ref = firebase.storage().ref().child("images/" + imageName);
-        // return ref.put(blob);
+        const url = ref.getDownloadURL();
+        values.image = url
+        return url;
     }
+
+
     render() {
         return (
-            <View>
+            <ScrollView style={styles.form}>
                 <Formik
                     validationSchema={validationSchema}
                     initialValues={initialValues}
@@ -97,16 +94,16 @@ export default class ClassFormFormik extends Component {
                             <TextInput
                                 theme={{
                                     colors: {
-                                    primary: "#006FB2"
-                                }
-                            }}
-                            keyboardType={'numeric'}
-                            label="Preço"
-                            onChangeText={handleChange('price')}
-                            placeholder="Exemplo: 98.99"
-                            onBlur={handleBlur('price')}
-                            value={values.price}
-                        />
+                                        primary: "#006FB2"
+                                    }
+                                }}
+                                keyboardType={'numeric'}
+                                label="Preço"
+                                onChangeText={handleChange('price')}
+                                placeholder="Exemplo: 98.99"
+                                onBlur={handleBlur('price')}
+                                value={values.price}
+                            />
                             {/* DESCRIBE INPUT */}
                             <TextInput
                                 theme={{
@@ -147,6 +144,7 @@ export default class ClassFormFormik extends Component {
                                 onBlur={handleBlur('visibleTo')}
                                 value={values.visibleTo}
                             />
+                            {/* <DatePicker handleChange={handleChange} /> */}
                             {/* Image Picker INPUT */}
                             <Button
                                 theme={{
@@ -155,7 +153,7 @@ export default class ClassFormFormik extends Component {
                                     }
                                 }}
                                 mode="contained" style={styles.button}
-                                onPress={() => { this._pickImage(handleChange('image')) }}>
+                                onPress={() => { this.pickImage(handleChange('image'), values) }}>
                                 Escolha uma imagem
                         </Button>
                             <Button
@@ -168,7 +166,8 @@ export default class ClassFormFormik extends Component {
                         </View>
                     )}
                 </Formik>
-            </View>
+
+            </ScrollView>
         )
     }
 }
