@@ -1,9 +1,6 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-    form:{
-        minHeight:'180%'
-    },
     button: {
         marginLeft: 20,
         marginRight: 20,

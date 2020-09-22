@@ -1,33 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import React from 'react';
+import {View, Text} from 'react-native';
 
 import styles from './styles'
 
 import Header from '../../home/HomeHeader';
-import Date from '../../home/DateComponent';
-
-import firebase from '../../../services/firebase'
+import Date from '../../home/DateComponent'
 
 
-function Home() {
-  const [listAds, setListAds] = useState([]);
 
-  useEffect(() => {
-    firebase.database().ref('/crud').on('value', (snapshot) => {
-      const list = [];
-      snapshot.forEach((childItem) => {
-        list.push({
-          key: childItem.key,
-          title: childItem.val().title,
-          price: childItem.val().price,
-          describe: childItem.val().describe,
-          visibleFrom: childItem.val().visibleFrom,
-          visibleTo: childItem.val().visibleTo,
-        });
-      });
-      setListAds(list.length);
-    });
-  });
+const Home = () => {
   return (
     <View>
       <Header />
@@ -41,7 +22,7 @@ function Home() {
         <View style={styles.statsContent}>
           <View style={styles.stats}>
             <Text style={styles.statsText}>Ativos</Text>
-            <Text style={styles.statsNumber}>{listAds}</Text>
+            <Text style={styles.statsNumber}>1</Text>
           </View>
           <View style={styles.stats}>
             <Text style={styles.statsText}>Programados</Text>
