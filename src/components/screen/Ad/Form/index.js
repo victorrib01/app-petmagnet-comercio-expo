@@ -109,46 +109,6 @@ export default class Form extends Component {
                                 onBlur={handleBlur('describe')}
                                 value={values.describe}
                             />
-                            {/* VISIBLEFROM INPUT */}
-                            {/* <TextInput
-                                theme={{
-                                    colors: {
-                                        primary: "#006FB2"
-                                    }
-                                }}
-                                label="Visível a partir de:"
-                                onChangeText={handleChange('visibleFrom')}
-                                placeholder="Utilize do padrão DD/MM. Exemplo: 05/09"
-                                onBlur={handleBlur('visibleFrom')}
-                                value={values.visibleFrom}
-                            /> */}
-                            {/* VISIBLETO INPUT */}
-                            {/* <TextInput
-                                theme={{
-                                    colors: {
-                                        primary: "#006FB2"
-                                    }
-                                }}
-                                label="Visível até:"
-                                onChangeText={handleChange('visibleTo')}
-                                placeholder="Utilize do padrão DD/MM. Exemplo: 05/10"
-                                onBlur={handleBlur('visibleTo')}
-                                value={values.visibleTo}
-                            /> */}
-                            {/* NUMBER INPUT */}
-                            {/* <TextInput
-                                theme={{
-                                    colors: {
-                                        primary: "#006FB2"
-                                    }
-                                }}
-                                label="Número para contato:"
-                                onChangeText={handleChange('number')}
-                                placeholder="Utilize do padrão 11 99999 9999. Exemplo: 11987654321"
-                                onBlur={handleBlur('number')}
-                                value={values.number}
-                            /> */}
-                            {/* <DatePicker handleChange={handleChange} /> */}
                             {/* Image Picker INPUT */}
                             <Button
                                 theme={{

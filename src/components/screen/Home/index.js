@@ -10,7 +10,7 @@ import { ApiGET } from '../../../services/ApiGET';
 
 const Home = () => {
   let jsonAnuncios = ApiGET({ endPoint: 'publicacoes/estabelecimento/1?encerrado=false' });
-  console.log(jsonAnuncios);
+  //console.log(jsonAnuncios);
   return (
     <View>
       <Header />

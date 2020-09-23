@@ -1,3 +1,6 @@
+import React from 'react';
+import { View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 // CARD - MÍDIAS SOCIAIS
 function CartaoAnuncioMidiasSociais(props) {
 
