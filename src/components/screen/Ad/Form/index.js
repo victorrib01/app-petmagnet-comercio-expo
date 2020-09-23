@@ -6,39 +6,31 @@ import { Keyboard, ScrollView, View, Alert } from 'react-native';
 import validationSchema from './components/Validation'
 import initialValues from './components/InitialValues'
 import styles from './styles'
-import firebase from '../../../../services/firebase';
+import api from '../../../../services/Api'
 
 export default class Form extends Component {
-    state = {
-        url: '',
-        progress: 0
-    }
 
     async onSubmit(values) {
-        //List of form values
-        //backend boy = {description, price, title, visible_from, visible_to, estabilishment_id, image_url}
-        console.log(values)
         this.createAd(values)
         Keyboard.dismiss();
     }
 
     async createAd(values) {
-
-        try {
-            await firebase.database().ref('/ads').push({
-                title: values.title,
-                price: values.price,
-                describe: values.describe,
-                visibleFrom: values.visibleFrom,
-                visibleTo: values.visibleTo,
-                image: values.image,
-                number: values.number
-            })
-
-        } catch (error) {
-            alert(error);
-        }
-        await this.uploadImage(values.image, values.key)
+        await api.post('anuncios', {
+            idEstabelecimento: 1,
+            idColaborador: 1,
+            titulo: values.title,
+            descricao: values.describe,
+            produtos: [
+                {
+                    descricao: values.describe,
+                    preco: values.price,
+                    image_byte: values.image
+                }
+            ]
+        })
+        console.log(values)
+        await this.uploadImage(values.image, values)
             .then(() => {
                 Alert.alert("Success");
             })
@@ -50,28 +42,7 @@ export default class Form extends Component {
     async uploadImage(uri, values) {
         const response = await fetch(uri);
         const blob = await response.blob();
-
-        const uploadTask = await firebase
-            .storage()
-            .ref(`images/${values.key}`)
-            .put(blob);
-        uploadTask.on('state_changed',
-            (snapshot) => {
-                // progrss function ....
-                const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-                this.setState({ progress });
-            },
-            (error) => {
-                // error function ....
-                console.log(error);
-            },
-            () => {
-                // complete function ....
-                storage.ref('images').child(image.name).getDownloadURL().then(url => {
-                    console.log(url);
-                    this.setState({ url });
-                })
-            });
+        values.image = blob
 
     }
 
@@ -82,7 +53,9 @@ export default class Form extends Component {
         })
         //console.log(result)
         if (!result.cancelled) {
-            handleChange(result.uri)
+            const response = await fetch(result.uri);
+            const blob = await response.blob();
+            handleChange(blob)
         }
     }
 
@@ -137,7 +110,7 @@ export default class Form extends Component {
                                 value={values.describe}
                             />
                             {/* VISIBLEFROM INPUT */}
-                            <TextInput
+                            {/* <TextInput
                                 theme={{
                                     colors: {
                                         primary: "#006FB2"
@@ -148,9 +121,9 @@ export default class Form extends Component {
                                 placeholder="Utilize do padrão DD/MM. Exemplo: 05/09"
                                 onBlur={handleBlur('visibleFrom')}
                                 value={values.visibleFrom}
-                            />
+                            /> */}
                             {/* VISIBLETO INPUT */}
-                            <TextInput
+                            {/* <TextInput
                                 theme={{
                                     colors: {
                                         primary: "#006FB2"
@@ -161,9 +134,9 @@ export default class Form extends Component {
                                 placeholder="Utilize do padrão DD/MM. Exemplo: 05/10"
                                 onBlur={handleBlur('visibleTo')}
                                 value={values.visibleTo}
-                            />
+                            /> */}
                             {/* NUMBER INPUT */}
-                            <TextInput
+                            {/* <TextInput
                                 theme={{
                                     colors: {
                                         primary: "#006FB2"
@@ -174,7 +147,7 @@ export default class Form extends Component {
                                 placeholder="Utilize do padrão 11 99999 9999. Exemplo: 11987654321"
                                 onBlur={handleBlur('number')}
                                 value={values.number}
-                            />
+                            /> */}
                             {/* <DatePicker handleChange={handleChange} /> */}
                             {/* Image Picker INPUT */}
                             <Button
